@@ -16,13 +16,17 @@ typedef struct {
 } param_struct;
 
 int** sudoku_board; // this board is shared by the threads
-int* worker_validation; // this will hold the result from each thread
+int* worker_validation[num_threads] = {0};
+void *is_grid_valid(void *params);
+void *is_row_valid(void *params);
+void *is_col_valid(void *params);
+// this will hold the result from each thread
 
 /**
  * is_board_valid - Checks if the Sudoko board is valid or not.  Returns a 0 
  *                  if the board is not valid; 1 otherwise.
 */
-int is_board_valid();
+int is_board_valid(int sudoku_board);
 
 /** 
  * Reads in the sudoku board into a 2-dimensional array
